@@ -1,3 +1,4 @@
+import {dotenv} from 'dotenv';
 import { toast } from 'react-toastify';
 
 export const handleSuccess = (msg) => {
@@ -12,4 +13,4 @@ export const handleError = (msg) => {
     })
 }
 
-export const APIUrl = process.env.REACT_APP_API_URL || 'http://localhost:8080';
+export const APIUrl = import.meta.env.VITE_REACT_APP_API_URL;
