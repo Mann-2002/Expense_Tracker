@@ -8,7 +8,7 @@
 }
 
 label{
-  font-size: 20px;
+  font-size: 16px;
 }
 
 html,
@@ -17,20 +17,46 @@ body{
   width: 100%;
 }
 
-body{
+body {
   display: flex;
-  justify-content: center;
+  flex-direction: column; /* Arrange children in a column */
+  justify-content: flex-start; /* Align items at the top */
   align-items: center;
 }
 
 .container{
+  margin-top: 150px;
   background-color: #FFF;
   padding: 32px 48px;
   border-radius: 10px;
   width: 100%;
-  max-width: 400px;
-  box-shadow: 8px 8px 24px 0px rgba(66, 68, 90, 1);
+  max-width: 600px;
+  box-shadow: 0px 0px 24px 0px rgba(66, 68, 90, 1);
 }
+.expenseform-container{
+  margin-top: 0px;
+  box-shadow: 0px 0px 0px 0px rgba(66, 68, 90, 1);
+  min-width:330px;
+}
+
+.home-container{
+  background-color: #FFF;
+  width: 90vw;
+  margin-top: 50px; /* Ensure no top margin */
+}
+
+.dashboard-container{
+  max-width: 700px;
+  background-color: #FFF;
+  border-radius: 10px;
+  margin: auto;
+  margin-top: 10px;
+  margin-bottom: 10px;
+  width: 90%;
+  overflow-y: auto;
+  padding: 10px 0px 10px 0px;
+}
+  
 
 .container > h1{
   margin-bottom: 20px;
@@ -69,20 +95,119 @@ button{
   padding: 8px;
   cursor: pointer;
   margin: 10px 0;
+  margin-right: 10px;
 }
 
+.close-button{
+  margin-left:15px;
+  width: 30px;
+  margin-bottom: 0px;
+}
 /* Expense tracker css */
-.expense-item{
+.expense-item {
   display: flex;
   justify-content: space-between;
   align-items: center;
   border-bottom: 1px solid #CCC;
+  padding: 10px 0;
 }
 
-.expense-description{
+.table-heading {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
   font-weight: bold;
+  padding: 10px 0;
+  background-color: #f4f4f4;
+  border-bottom: 2px solid #CCC;
 }
 
+.filter-container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: center;
+  margin: 10px 0 0 0;
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 12px;
+  max-width: 322px;
+  text-align: center;
+}
+
+.filter-container select {
+  padding: 8px 6px 8px 6px;
+  font-size: 14px;
+  color: #333;
+  background-color: #f9f9f9;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  outline: none;
+}
+
+.sort-container {
+  text-align: right;
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 12px;
+}
+
+.sort-container select {
+  padding: 8px 6px 8px 6px;
+  font-size: 14px;
+  color: #333;
+  background-color: #f9f9f9;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  outline: none;
+}
+
+
+.typInput{
+  padding-top : 20px;
+}
+
+.type_selection select {
+  padding: 8px 6px 8px 6px;
+  font-size: 14px;
+  color: #333;
+  background-color: #f9f9f9;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  outline: none;
+}
+
+.heading-description{
+  flex:3;
+  text-align: center;
+}
+
+.heading-amount{
+  flex:2;
+  text-align: center;
+}
+
+.heading-date {
+  flex: 2;
+  text-align: center;
+}
+.heading-delete{
+  flex:1;
+  text-align: center;
+}
+.expense-description {
+  font-weight: bold;
+  text-align: left;
+  flex: 3; /* Expands description to take more space */
+}
+
+.filterbox {
+  padding-top: 10px;
+  padding-bottom: 10px;
+}
+
+.delete-button-container{
+  flex: 1;
+  text-align: center;
+}
 .delete-button{
   background-color: #e74c3c;
   color: white;
@@ -91,6 +216,7 @@ button{
   font-size: 15px;
   cursor:pointer;
   border-radius: 3px;
+  max-width:50px;
 }
 
 .expense-list{
@@ -109,15 +235,55 @@ button{
   margin: 20px 0;
   font-family: Arial, Helvetica, sans-serif;
   font-size: 18px;
+  max-width: 400px;   
 }
 
 .income-amount{
   color: #27ae60;
   font-weight: bold;
+  text-align: center;
+  flex: 2;
 
 }
 
 .expense-amount{
   color: #e74c3c;
   font-weight: bold;
+  text-align: center;
+  flex: 2;
+}
+
+.expense-date {
+  text-align: center;
+  flex: 2;
+}
+
+select {
+  margin-top : 10px;
+}
+
+/* Overlay for the form */
+.overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(0, 0, 0, 0.5); /* Semi-transparent black background */
+  z-index: 999; /* Ensure it's on top */
+  overflow: auto; 
+}
+
+.overlay .form-container {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: #FFF;
+  border-radius: 10px;
+  z-index: 1000; /* To ensure the form is above the overlay */
+}
+
+.divider {
+  margin-top: 30px;
 }

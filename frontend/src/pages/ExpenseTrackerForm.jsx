@@ -1,59 +1,90 @@
 import React, { useState } from "react";
 import { handleError } from "../utils";
 
-function ExpenseTrackerForm({addExpenses}) {
+function ExpenseTrackerForm({ addExpenses }) {
+  const [expenseInfo, setExpenseInfo] = useState({
+    text: '',
+    amount: '',
+    type: 'Other',
+    date: ''
+  });
 
-    const [expenseInfo, setExpenseInfo] = useState({ text: '', amount: '' });
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setExpenseInfo({ ...expenseInfo, [name]: value });
+  };
 
-    const handleChange = (e) => {
-        const { name, value } = e.target;
-        console.log(name, value);
-        const copyExpenseInfo = { ...expenseInfo };
-        copyExpenseInfo[name] = value;
-        setExpenseInfo(copyExpenseInfo);
+  const handleExpense = (e) => {
+    e.preventDefault();
+    const { text, amount, type, date } = expenseInfo;
+
+    if (!text || !amount || !type || !date) {
+      handleError('All fields are required');
+      return;
     }
-    const handleExpense = (e) => {
-        e.preventDefault();
-        console.log(expenseInfo);
-        const {text,amount}= expenseInfo;
-        if(!text || !amount){
-            handleError('All fields are required');
-            return;
-        }
-        setTimeout(()=>{
-            setExpenseInfo({text:'', amount: ''})
-        },1000)
-        addExpenses(expenseInfo)
-    }
-    return (
-        <div className='container'>
-            <h1>Expense Tracker</h1>
-            <form onSubmit={handleExpense}>
-                <div>
-                    <label htmlFor='email'>Expense Description</label>
-                    <input
-                        onChange={handleChange}
-                        type='text'
-                        name='text'
-                        placeholder='Enter your Expense Description...'
-                        value={expenseInfo.text}
-                    />
-                </div>
-                <div>
-                    <label htmlFor='amount'>Amount</label>
-                    <input
-                        onChange={handleChange}
-                        type='number'
-                        name='amount'
-                        placeholder='Enter your Amount, Expense(-ve) Income(+ve)...'
-                        value={expenseInfo.amount}
-                    />
-                </div>
-                <button type='submit'>Add Expense</button>
-                
-            </form>
+
+    addExpenses(expenseInfo);
+
+    // Clear form after submission
+    setTimeout(() => {
+      setExpenseInfo({ text: '', amount: '', type: 'Other', date: '' });
+    }, 1000);
+  };
+
+  return (
+    <div className='container expenseform-container'>
+      <h1>Expense Tracker</h1>
+      <form onSubmit={handleExpense}>
+        <div>
+          <label htmlFor='text'>Description</label>
+          <input
+            onChange={handleChange}
+            type='text'
+            name='text'
+            placeholder='Enter your Expense Description...'
+            value={expenseInfo.text}
+          />
         </div>
-    )
+        <div>
+          <label htmlFor='amount'>Amount</label>
+          <input
+            onChange={handleChange}
+            type='number'
+            name='amount'
+            placeholder='Enter Amount (Expense: -ve, Income: +ve)...'
+            value={expenseInfo.amount}
+          />
+        </div>
+        <div className='type_selection'>
+          <label htmlFor='type'>Category</label>
+          <select
+            onChange={handleChange}
+            name='type'
+            value={expenseInfo.type}
+          >
+            <option value='Other'>Other</option>
+            <option value='Housing'>Housing</option>
+            <option value='Groceries'>Groceries</option>
+            <option value='Transportation'>Transportation</option>
+            <option value='Health'>Health</option>
+            <option value='Debt Payments'>Debt Payments</option>
+            <option value='Entertainment'>Entertainment</option>
+            <option value='Clothing'>Clothing</option>
+          </select>
+        </div>
+        <div>
+          <label htmlFor='date'>Date</label>
+          <input
+            onChange={handleChange}
+            type='date'
+            name='date'
+            value={expenseInfo.date}
+          />
+        </div>
+        <button type='submit'>Add Record</button>
+      </form>
+    </div>
+  );
 }
 
-export default ExpenseTrackerForm
+export default ExpenseTrackerForm;

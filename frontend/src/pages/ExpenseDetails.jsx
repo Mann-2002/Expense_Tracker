@@ -5,8 +5,8 @@ function ExpenseDetails({incomeAmt, expenseAmt}) {
 
     return(
         <div>
-            <div>
-                Your Balance is: {incomeAmt - expenseAmt}
+            <div className="amounts-container">
+                Balance: {incomeAmt - expenseAmt}
             </div>
            
            <div className="amounts-container">
