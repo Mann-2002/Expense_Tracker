@@ -1,0 +1,46 @@
+/* Amounts Container */
+.amounts-container {
+    font-family: 'Poppins', sans-serif;
+    font-size: 18px;
+    color: var(--text-color);
+    width: 100%;
+    max-width: 400px;
+    margin: var(--spacing) 0;
+    line-height: 1.8;
+}
+
+.balance-row {
+    font-weight: 600;
+    margin-bottom: 15px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.income-expense-row {
+    display: flex;
+    justify-content: space-between;
+    gap: 40px;
+    font-weight: 500;
+    align-items: center;
+}
+
+/* amount numbers */
+.income-amount {
+    color: #3cb371;
+    font-weight: 600;
+    font-size: 18px;
+    line-height: 1;
+}
+
+.expense-amount {
+    color: #d64545;
+    font-weight: 600;
+    font-size: 18px;
+    line-height: 1;
+}
+
+.balance-amount {
+    font-weight: 700;
+    font-size: 20px;
+}

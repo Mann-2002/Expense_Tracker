@@ -1,7 +1,8 @@
 import React, { useState } from "react";
 import { handleError } from "../utils";
+import '../styles/ExpenseTrackerForm.css';
 
-function ExpenseTrackerForm({ addExpenses }) {
+function ExpenseTrackerForm({ addExpenses, closeOverlay }) {
   const [expenseInfo, setExpenseInfo] = useState({
     text: '',
     amount: '',
@@ -14,7 +15,7 @@ function ExpenseTrackerForm({ addExpenses }) {
     setExpenseInfo({ ...expenseInfo, [name]: value });
   };
 
-  const handleExpense = (e) => {
+  const handleExpense = async (e) => {
     e.preventDefault();
     const { text, amount, type, date } = expenseInfo;
 
@@ -23,17 +24,18 @@ function ExpenseTrackerForm({ addExpenses }) {
       return;
     }
 
-    addExpenses(expenseInfo);
+    await addExpenses(expenseInfo);
 
     // Clear form after submission
     setTimeout(() => {
       setExpenseInfo({ text: '', amount: '', type: 'Other', date: '' });
     }, 1000);
+    closeOverlay();
   };
 
   return (
-    <div className='container expenseform-container'>
-      <h1>Expense Tracker</h1>
+    <div className='expenseform-container'>
+      <h3>Enter expense details:</h3>
       <form onSubmit={handleExpense}>
         <div>
           <label htmlFor='text'>Description</label>
@@ -62,7 +64,6 @@ function ExpenseTrackerForm({ addExpenses }) {
             name='type'
             value={expenseInfo.type}
           >
-            <option value='Other'>Other</option>
             <option value='Housing'>Housing</option>
             <option value='Groceries'>Groceries</option>
             <option value='Transportation'>Transportation</option>
@@ -70,6 +71,8 @@ function ExpenseTrackerForm({ addExpenses }) {
             <option value='Debt Payments'>Debt Payments</option>
             <option value='Entertainment'>Entertainment</option>
             <option value='Clothing'>Clothing</option>
+            <option value='Income'>Income</option>
+            <option value='Other'>Other</option>
           </select>
         </div>
         <div>

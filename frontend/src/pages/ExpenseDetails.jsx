@@ -1,23 +1,20 @@
 import React from "react";
+import '../styles/ExpenseDetails.css'
 
-function ExpenseDetails({incomeAmt, expenseAmt}) {
-    console.log('incomeAmt,expenseAmt ', incomeAmt,expenseAmt)
+function ExpenseDetails({ incomeAmt, expenseAmt }) {
+    console.log('incomeAmt,expenseAmt ', incomeAmt, expenseAmt)
 
-    return(
+    return (
         <div>
             <div className="amounts-container">
-                Balance: {incomeAmt - expenseAmt}
+                <div className="balance-row">
+                    Balance: <span className="balance-amount">{incomeAmt - expenseAmt}</span>
+                </div>
+                <div className="income-expense-row">
+                    Income: <span className="income-amount">{incomeAmt}</span>
+                    Expense: <span className="expense-amount">{expenseAmt}</span>
+                </div>
             </div>
-           
-           <div className="amounts-container">
-            Income
-           <span className="income-amount">{incomeAmt}</span>
-
-            Expense
-            <span className="expense-amount">{expenseAmt}</span>
-
-           </div>
-
         </div>
     )
 }

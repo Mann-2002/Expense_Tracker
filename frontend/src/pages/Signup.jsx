@@ -55,7 +55,8 @@ function Signup() {
     }
     return (
         <div className='container'>
-            <h1>Signup</h1>
+            <h1>Expense Tracker</h1>
+            <h2>Sign up</h2>
             <form onSubmit={handleSignup}>
                 <div>
                     <label htmlFor='name'>Name</label>
@@ -90,7 +91,7 @@ function Signup() {
                 </div>
                 <button type='submit'>Signup</button>
                 <span>Already have an account ?
-                    <Link to="/login">Login</Link>
+                    <Link to="/login"> Login</Link>
                 </span>
             </form>
             <ToastContainer />

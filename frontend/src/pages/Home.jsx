@@ -6,6 +6,7 @@ import ExpensesTable from './ExpensesTable';
 import ExpenseTrackerForm from './ExpenseTrackerForm';
 import ExpenseDetails from './ExpenseDetails';
 import Dashboard from './Dashboard';
+import '../styles/Home.css'
 
 function Home() {
     const [loggedInUser, setLoggedInUser] = useState('');
@@ -16,9 +17,10 @@ function Home() {
     const [filterType, setFilterType] = useState("");
     const [showForm, setShowForm] = useState(false);
     const [selectedMonth, setSelectedMonth] = useState("");
-    const [selectedYear, setSelectedYear] = useState(""); 
+    const [selectedYear, setSelectedYear] = useState("");
     const [showDashboard, setShowDashboard] = useState(false);
-    const [sortOrder, setSortOrder] = useState("");
+    const [sortOrder, setSortOrder] = useState("dateDesc");
+    const [searchQuery, setSearchQuery] = useState("");
     const navigate = useNavigate();
     useEffect(() => {
         setLoggedInUser(localStorage.getItem('loggedInUser'))
@@ -35,23 +37,23 @@ function Home() {
     const handleYearFilter = (e) => {
         setSelectedYear(e.target.value); // Update the selected year
     }
-    useEffect(()=>{
-        const amounts = filteredExpenses.map((item)=> item.amount);
+    useEffect(() => {
+        const amounts = filteredExpenses.map((item) => item.amount);
         console.log(amounts);
 
         const income = amounts.filter(item => item > 0)
-        .reduce((acc, item)=>(acc += item), 0);
+            .reduce((acc, item) => (acc += item), 0);
         console.log('income: ', income)
 
         // will show the expenses in poitive
         const exp = amounts.filter(item => item < 0)
-        .reduce((acc, item)=>(acc += item), 0) * -1;
+            .reduce((acc, item) => (acc += item), 0) * -1;
         console.log('expense: ', exp)
 
         setIncomeAmt(income);
         setExpenseAmt(exp);
 
-    },[filterType, filteredExpenses, selectedMonth, selectedYear]);
+    }, [filterType, filteredExpenses, selectedMonth, selectedYear]);
 
     const handleLogout = (e) => {
         localStorage.removeItem('token');
@@ -71,7 +73,7 @@ function Home() {
                 }
             }
             const response = await fetch(url, headers);
-            if(response.status === 403){
+            if (response.status === 403) {
                 navigate('/login');
                 return;
             }
@@ -94,11 +96,11 @@ function Home() {
                     'Content-Type': 'application/json'
 
                 },
-                method: 'POST', 
+                method: 'POST',
                 body: JSON.stringify(data)
             }
             const response = await fetch(url, headers);
-            if(response.status === 403){
+            if (response.status === 403) {
                 navigate('/login');
                 return;
             }
@@ -110,10 +112,18 @@ function Home() {
             handleError(err);
         }
     }
-
+    //search query function
+    const handleSearchChange = (e) => {
+        setSearchQuery(e.target.value);
+    };
     useEffect(() => {
         let filtered = expenses;
-
+        // Search query filter
+        if (searchQuery.trim()) {
+            filtered = filtered.filter((expense) =>
+                expense.text && expense.text.toLowerCase().includes(searchQuery.toLowerCase())
+            );
+        }
         // Filter by type if filterType is set
         if (filterType) {
             filtered = filtered.filter((expense) => expense.type === filterType);
@@ -135,6 +145,7 @@ function Home() {
             });
         }
 
+        // Sort order
         if (sortOrder === "asc") {
             filtered = [...filtered].sort((a, b) => a.amount - b.amount);
         } else if (sortOrder === "desc") {
@@ -144,9 +155,11 @@ function Home() {
         } else if (sortOrder === "dateDesc") {
             filtered = [...filtered].sort((a, b) => new Date(b.date) - new Date(a.date)); // Descending by date
         }
-    
+
+
+
         setFilteredExpenses(filtered);
-    }, [filterType, expenses, selectedMonth, selectedYear, sortOrder]);
+    }, [filterType, expenses, selectedMonth, selectedYear, sortOrder, searchQuery]);
 
     useEffect(() => {
         fetchExpenses()
@@ -164,7 +177,7 @@ function Home() {
                 method: 'DELETE'
             }
             const response = await fetch(url, headers);
-            if(response.status === 403){
+            if (response.status === 403) {
                 navigate('/login');
                 return;
             }
@@ -176,7 +189,7 @@ function Home() {
             handleError(err);
         }
     }
-    
+
     const toggleForm = () => {
         setShowForm(!showForm); // Toggle the visibility of the form
     };
@@ -191,124 +204,141 @@ function Home() {
     };
 
     return (
-        <div className="home-container">
-            <div className='user-section'>
-            <h1>Welcome {loggedInUser}</h1>
-            <button onClick={handleLogout}>Logout</button>
-            </div>
-            <ExpenseDetails
-             incomeAmt={incomeAmt} 
-             expenseAmt={expenseAmt} />
-            <button onClick={toggleForm}>
-                Add Record
-            </button>
-            <button onClick={toggleDashboard}>View Dashboard</button>
-            {showForm && (
-            <div className="overlay">
-                
-                <div className="form-container">
-                <button className='close-button' onClick={closeOverlay}>X</button>
-                    <ExpenseTrackerForm addExpenses={addExpenses} />
+        <div className="home-wrapper">
+            <div className="home-container">
+                <div className='user-section'>
+                    <h1>Welcome {loggedInUser}</h1>
+                    <button onClick={handleLogout}>Logout</button>
                 </div>
-            </div>
-             )}
+                <ExpenseDetails
+                    incomeAmt={incomeAmt}
+                    expenseAmt={expenseAmt} />
+                <br />
+                <button onClick={toggleForm}>
+                    Add Record
+                </button>
+                <button onClick={toggleDashboard}>View Dashboard</button>
+                <br />
+                <hr className="custom-hr" />
+                {showForm && (
+                    <div className="overlay">
+                        <div className="form-container">
+                            <button className='close-button' onClick={closeOverlay}>X</button>
+                            <ExpenseTrackerForm addExpenses={addExpenses} closeOverlay={closeOverlay} />
+                        </div>
+                    </div>
+                )}
 
-            {showDashboard && (
-                <div className="overlay">
-                    <div className="dashboard-container">
-                        <button className="close-button" onClick={closeOverlay}>X</button>
-                        <Dashboard filteredExpenses={filteredExpenses} />
+                {showDashboard && (
+                    <div className="overlay">
+                        <div className="dashboard-container">
+                            <button className="close-button" onClick={closeOverlay}>X</button>
+                            <Dashboard filteredExpenses={filteredExpenses} />
+                        </div>
+                    </div>
+                )}
+
+                <div className='filter-container'>
+
+                    <div className="type-filter">
+                        <div>
+                            <label htmlFor='filtertype'>Category</label>
+                        </div>
+                        <div>
+                            <select
+                                name='filtertype'
+                                onChange={handleFilter}
+                                defaultValue=""
+                            >
+                                <option value=''>All</option>
+                                <option value='Housing'>Housing</option>
+                                <option value='Groceries'>Groceries</option>
+                                <option value='Transportation'>Transportation</option>
+                                <option value='Health'>Health</option>
+                                <option value='Debt Payments'>Debt Payments</option>
+                                <option value='Entertainment'>Entertainment</option>
+                                <option value='Clothing'>Clothing</option>
+                                <option value='Income'>Income</option>
+                                <option value='Other'>Other</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div className="month-filter">
+                        <div>
+                            <label htmlFor="month">Month</label>
+                        </div>
+                        <div>
+                            <select name="month" onChange={handleMonthFilter} value={selectedMonth}>
+                                <option value="">All</option>
+                                <option value="1">January</option>
+                                <option value="2">February</option>
+                                <option value="3">March</option>
+                                <option value="4">April</option>
+                                <option value="5">May</option>
+                                <option value="6">June</option>
+                                <option value="7">July</option>
+                                <option value="8">August</option>
+                                <option value="9">September</option>
+                                <option value="10">October</option>
+                                <option value="11">November</option>
+                                <option value="12">December</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div className="year-filter">
+                        <div className="filter-label">
+                            <label htmlFor="year">Year</label>
+                        </div>
+                        <div className="filter-dropdown">
+                            <select name="year" onChange={handleYearFilter} value={selectedYear}>
+                                <option value="">All</option>
+                                {Array.from(new Set(expenses.map((expense) => new Date(expense.date).getFullYear())))
+                                    .map((year) => (
+                                        <option key={year} value={year}>
+                                            {year}
+                                        </option>
+                                    ))}
+                            </select>
+                        </div>
                     </div>
                 </div>
-            )}
+                <div className="sort-container">
+                    <div>
+                        <select
+                            name="sort"
+                            onChange={(e) => setSortOrder(e.target.value)}
+                            value={sortOrder}
+                        >
+                            {/* <option value="">Sorting : Default</option> */}
+                            <option value="dateDesc">Sorting : Default - Date (Newest to Oldest)</option>
+                            <option value="dateAsc">Date (Oldest to Newest)</option>
+                            <option value="asc">Amount Ascending</option>
+                            <option value="desc">Amount Descending</option>
+                        </select>
+                    </div>
+                </div>
+                <div className='search-section'>
+                    <div className="search-bar">
+                        <label>Search by name: </label>
+                        <input
+                            type="text"
+                            placeholder="Search expenses..."
+                            value={searchQuery}
+                            onChange={handleSearchChange}
+                        />
+                    </div>
+                </div>
 
-            <div className='filter-container'>
-            <div className = "type-filter">
-                <div>
-                 <label htmlFor='filtertype'>Category</label>
-                </div>
-                <div>
-                <select
-                    name='filtertype'
-                    onChange={handleFilter}
-                    defaultValue="" 
-                >
-                    <option value=''>All</option>
-                    <option value='Housing'>Housing</option>
-                    <option value='Groceries'>Groceries</option>
-                    <option value='Transportation'>Transportation</option>
-                    <option value='Health'>Health</option>
-                    <option value='Debt Payments'>Debt Payments</option>
-                    <option value='Entertainment'>Entertainment</option>
-                    <option value='Clothing'>Clothing</option>
-                    <option value='Clothing'>Income</option>
-                    <option value='Other'>Other</option>
-                </select>
-                </div>
+
+
+                <ExpensesTable
+                    expenses={filteredExpenses}
+                    handDeleteExpense={handDeleteExpense} />
+
+                <ToastContainer />
             </div>
-
-          <div className="month-filter">
-                <div>
-                <label htmlFor="month">Month</label>
-                </div>
-                <div>
-                <select name="month" onChange={handleMonthFilter} value={selectedMonth}>
-                    <option value="">All</option>
-                    <option value="1">January</option>
-                    <option value="2">February</option>
-                    <option value="3">March</option>
-                    <option value="4">April</option>
-                    <option value="5">May</option>
-                    <option value="6">June</option>
-                    <option value="7">July</option>
-                    <option value="8">August</option>
-                    <option value="9">September</option>
-                    <option value="10">October</option>
-                    <option value="11">November</option>
-                    <option value="12">December</option>
-                </select>
-                </div>
-            </div>
-
-            <div className="year-filter">
-                <div className="filter-label">
-                <label htmlFor="year">Year</label>
-                </div>
-                <div className="filter-dropdown">
-                <select name="year" onChange={handleYearFilter} value={selectedYear}>
-                    <option value="">All</option>
-                    {Array.from(new Set(expenses.map((expense) => new Date(expense.date).getFullYear())))
-                        .map((year) => (
-                            <option key={year} value={year}>
-                                {year}
-                            </option>
-                        ))}
-                </select>
-                </div>
-            </div>
-            </div>
-            <div className="sort-container">
-                <div>
-                <select
-                    name="sort"
-                    onChange={(e) => setSortOrder(e.target.value)}
-                    value={sortOrder}
-                >
-                    <option value="">Sorting : Default</option>
-                    <option value="asc">Amount Ascending</option>
-                    <option value="desc">Amount Descending</option>
-                    <option value="dateAsc">Date (Oldest to Newest)</option>
-                    <option value="dateDesc">Date (Newest to Oldest)</option>
-                </select>
-                </div>
-            </div>
-
-
-            <ExpensesTable
-             expenses = {filteredExpenses} 
-             handDeleteExpense= {handDeleteExpense}/>
-
-            <ToastContainer />
         </div>
     )
 }

@@ -58,7 +58,8 @@ function Login() {
 
     return (
         <div className='container'>
-            <h1>Login</h1>
+            <h1>Expense Tracker</h1>
+            <h2>Login</h2>
             <form onSubmit={handleLogin}>
                 <div>
                     <label htmlFor='email'>Email</label>
@@ -82,7 +83,7 @@ function Login() {
                 </div>
                 <button type='submit'>Login</button>
                 <span>Does't have an account ?
-                    <Link to="/signup">Signup</Link>
+                    <Link to="/signup"> Signup</Link>
                 </span>
             </form>
             <ToastContainer />

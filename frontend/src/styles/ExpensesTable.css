@@ -1,0 +1,95 @@
+/* Expense List Container */
+.expense-list {
+    font-family: 'Poppins', sans-serif;
+    width: 100%;
+    margin-top: var(--spacing);
+    max-width: 800px;
+    margin: auto;
+}
+
+/* Table Heading */
+.table-heading {
+    display: grid;
+    grid-template-columns: 2fr 2fr 2fr 1fr;
+    align-items: center;
+    padding: 15px 0;
+    background-color: var(--button-bg);
+    color: var(--button-text);
+    font-weight: bold;
+    border-bottom: 2px solid var(--dark-gray);
+    gap: 20px;
+    text-align: center;
+}
+
+.heading-description {
+    text-align: left;
+    padding-left: 20px;
+}
+
+.heading-amount {
+    text-align: center;
+}
+
+.heading-date {
+    text-align: center;
+}
+
+.heading-delete {
+    text-align: right;
+    padding-right: 20px;
+}
+
+
+
+/* Expense Item Rows */
+.expense-item {
+    display: grid;
+    grid-template-columns: 2fr 2fr 2fr 1fr;
+    align-items: center;
+    padding: 15px 0;
+    border-bottom: 1px solid var(--input-border);
+    gap: 20px;
+}
+
+.expense-description {
+    font-weight: 600;
+    color: var(--text-color);
+    text-align: left;
+    padding-left: 20px;
+    word-wrap: break-word;
+    white-space: normal;
+    overflow: hidden;
+}
+
+.expense-amount-2 {
+    font-weight: 600;
+    font-size: 18px;
+    text-align: center;
+    color: var(--text-color);
+}
+
+.expense-date {
+    text-align: center;
+    color: var(--text-color);
+}
+
+.delete-button-container {
+    text-align: right;
+    padding-right: 20px;
+}
+
+
+/* Delete Button */
+.delete-button {
+    background-color: #e74c3c;
+    color: #ffffff;
+    border: none;
+    padding: 6px 10px;
+    font-size: 15px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.delete-button:hover {
+    background-color: #c0392b;
+}
