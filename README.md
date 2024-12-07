@@ -35,7 +35,7 @@ Effortlessly track your expenses and income. The app lets you:
 
 ---
 
-## Technology Behind Live Aquaria
+## Technology Behind Expense-Tracker
 - *Frontend: Built using React.js for a responsive and dynamic user interface. Integrated Chart.js and React-Chartjs-2 for rich data visualization. Notifications are powered by React-Toastify for a seamless user experience.
 - *Backend: Powered by Node.js and Express.js for efficient server-side processing. User authentication is secured with JWT and bcrypt, while Joi ensures input validation.
 - *Database: Managed with MongoDB, offering scalable and reliable data storage solutions.
@@ -93,7 +93,7 @@ Effortlessly track your expenses and income. The app lets you:
 
 <img width="1440" alt="PieChart" src="Photos/PieChart.jpg">
 
-
+---
 
 
 
