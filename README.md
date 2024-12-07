@@ -66,7 +66,7 @@ Effortlessly track your expenses and income. The app lets you:
 ## Running the Application
 
 1. Start the backend server:
- ```  
+   ```  
    cd Backend
    node run dev
    ```
