@@ -52,30 +52,30 @@ Effortlessly track your expenses and income. The app lets you:
    ```
 
 2. Install backend dependencies:
-   
+   ```
    cd Backend
    npm install
-   
+   ```
 
 3. Install frontend dependencies:
-   
+   ```
    cd ../Frontend
    npm install
-   
+   ```
 
 ## Running the Application
 
 1. Start the backend server:
-   
+ ```  
    cd Backend
    node run dev
-   
+   ```
 
 2. In a new terminal, start the frontend:
-   
+   ```
    cd Frontend
    npm run dev
-   
+   ```
 
 3. Open your browser and navigate to http://localhost:5173
 
