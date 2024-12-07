@@ -47,9 +47,9 @@ Effortlessly track your expenses and income. The app lets you:
 ## Getting Started
 
 1. Clone the repository:
-   
+   ```
    git clone [repository URL]
-   
+   ```
 
 2. Install backend dependencies:
    
