@@ -95,5 +95,30 @@ Effortlessly track your expenses and income. The app lets you:
 
 ---
 
+## Usage Instructions
+
+1.	Sign Up:
+	- *Navigate to the Signup page.
+	- *Enter your name, email, and password to create an account.
+2.	Login:
+	- *Use your registered email and password to log in.
+3.	Dashboard Overview:
+	- *View your Balance, Total Income, and Expenses at the top.
+	- *Explore your financial records in the expense table below.
+4.	Add a Record:
+	- *Click on the "Add Record" button.
+	- *Enter the details (e.g., description, amount, and category) and save the record.
+5.	Filter and Search Records:
+	- *Use the filters (Category, Month, Year) or the search bar to find specific records.
+6.	View Insights:
+	- *Navigate to the Dashboard to view:
+	- *Line Graph: Tracks expense trends over time.
+	- *Pie Chart: Displays expenses by category.
+7.	Delete Records:
+	- *Click the red Delete button next to a record to remove it.
+8.	Toggle Themes:
+	- *Switch between Dark Mode and Light Mode using the toggle button for a personalized experience.
+9.	Logout:
+	- *Click the Logout button to securely exit your session.
 
 
