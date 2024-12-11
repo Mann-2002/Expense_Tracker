@@ -23,12 +23,12 @@ function Login() {
     const handleLogin = async (e) => {
         e.preventDefault();
         const { email, password } = loginInfo;
-        if (!email || !password) {
+        if (!email || !password) {    //check if email and password are entered
             return handleError('email and password are required')
         }
         try {
             const url = `${APIUrl}/auth/login`;
-            const response = await fetch(url, {
+            const response = await fetch(url, {     //post the login request
                 method: "POST",
                 headers: {
                     'Content-Type': 'application/json'
@@ -39,7 +39,7 @@ function Login() {
             const { success, message, jwtToken, name, error } = result;
             if (success) {
                 handleSuccess(message);
-                localStorage.setItem('token', jwtToken);
+                localStorage.setItem('token', jwtToken);     //save the token if successfully logged in
                 localStorage.setItem('loggedInUser', name);
                 setTimeout(() => {
                     navigate('/home')

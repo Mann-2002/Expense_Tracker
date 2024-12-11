@@ -1,6 +1,7 @@
 import React from "react";
 import '../styles/ExpenseDetails.css'
 
+//To show the balance, income and expense at the homepage
 function ExpenseDetails({ incomeAmt, expenseAmt }) {
     console.log('incomeAmt,expenseAmt ', incomeAmt, expenseAmt)
 

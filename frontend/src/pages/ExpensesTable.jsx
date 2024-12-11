@@ -1,6 +1,7 @@
 import React from 'react'
 import '../styles/ExpensesTable.css'
 
+//The whole expensetable componenet
 function ExpensesTable({ expenses, handDeleteExpense }) {
     console.log('ExpensesTable-->', expenses)
     return (
@@ -12,9 +13,10 @@ function ExpensesTable({ expenses, handDeleteExpense }) {
                 <div className='heading-delete'>Delete</div>
             </div>
             {
+                //loop through the list of expenses and show them
                 expenses?.map((expense, index) => (
 
-                    <div Key={index} className='expense-item'>
+                    <div Key={index} className='expense-item'> 
 
                         <div className='expense-description'>{expense.text}</div>
                         <div className='expense-amount-2'

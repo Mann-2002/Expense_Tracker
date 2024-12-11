@@ -60,7 +60,7 @@ function ExpenseTrackerForm({ addExpenses, closeOverlay }) {
         </div>
         <div className='type_selection'>
           <label htmlFor='type'>Category</label>
-          <select
+          <select   //dropdown menu for choosing expense categories
             onChange={handleChange}
             name='type'
             value={expenseInfo.type}

@@ -218,7 +218,7 @@ function Home() {
                 <button onClick={toggleDashboard}>View Dashboard</button>
                 <br />
                 <hr className="custom-hr" />
-                {showForm && (
+                {showForm && (   //If showForm is true, the overlay layer will be rendered
                     <div className="overlay">
                         <div className="form-container">
                             <button className='close-button' onClick={closeOverlay}>X</button>
@@ -227,7 +227,7 @@ function Home() {
                     </div>
                 )}
 
-                {showDashboard && (
+                {showDashboard && (  //If showDashboard is true, the overlay layer will be rendered
                     <div className="overlay">
                         <div className="dashboard-container">
                             <button className="close-button" onClick={closeOverlay}>X</button>

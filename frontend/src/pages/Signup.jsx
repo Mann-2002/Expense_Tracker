@@ -23,12 +23,12 @@ function Signup() {
     const handleSignup = async (e) => {
         e.preventDefault();
         const { name, email, password } = signupInfo;
-        if (!name || !email || !password) {
+        if (!name || !email || !password) {    //check if name, email and password are entered
             return handleError('name, email and password are required')
         }
         try {
-            const url = `${APIUrl}/auth/signup`;
-            const response = await fetch(url, {
+            const url = `${APIUrl}/auth/signup`;  
+            const response = await fetch(url, {    //post the request
                 method: "POST",
                 headers: {
                     'Content-Type': 'application/json'
@@ -42,7 +42,7 @@ function Signup() {
                 setTimeout(() => {
                     navigate('/login')
                 }, 1000)
-            } else if (error) {
+            } else if (error) {     //show error message if error
                 const details = error?.details[0].message;
                 handleError(details);
             } else if (!success) {
